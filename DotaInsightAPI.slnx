@@ -1,5 +1,8 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/DotaInsight.API/DotaInsight.API.csproj" />
+    <Project Path="src/DotaInsight.Application/DotaInsight.Application.csproj" />
+    <Project Path="src/DotaInsight.Domain/DotaInsight.Domain.csproj" />
+    <Project Path="src/DotaInsight.Infrastructure/DotaInsight.Infrastructure.csproj" />
   </Folder>
 </Solution>

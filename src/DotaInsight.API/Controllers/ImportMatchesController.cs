@@ -9,9 +9,14 @@ public sealed class ImportMatchesController : ControllerBase
     [HttpPost("run")]
     public IActionResult Run()
     {
+        return NotImplemented("Manual match import endpoint is not implemented yet.");
+    }
+
+    private ObjectResult NotImplemented(string detail)
+    {
         return Problem(
             title: "Not implemented",
-            detail: "Manual match import endpoint is not implemented yet.",
+            detail: detail,
             statusCode: StatusCodes.Status501NotImplemented);
     }
 }
