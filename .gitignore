@@ -1,2 +1,9 @@
 docs/
 .agents/
+bin/
+obj/
+.vs/
+TestResults/
+coverage/
+*.trx
+*.coverage
