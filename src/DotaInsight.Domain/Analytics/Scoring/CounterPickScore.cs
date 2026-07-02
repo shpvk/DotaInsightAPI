@@ -1,3 +1,5 @@
+using DotaInsight.Domain.Shared;
+
 namespace DotaInsight.Domain.Analytics.Scoring;
 
 public class CounterPickScore
@@ -20,21 +22,21 @@ public class CounterPickScore
     
     public double Score { get; private set; } // score = matchupImpact * confidence
 
-    public static (CounterPickScore? counterPickScore, string? error) Create(
+    public static Result<CounterPickScore> Create(
         double confidence, double matchupImpact)
     {
         if (confidence is < 0 or > 1)
         {
-            return (null, "Incorrect confidence value");
+            return Result<CounterPickScore>.Failure("Confidence must be between 0 and 1.");
         }
         
         if (matchupImpact is < -1 or > 1 )
         {
-            return (null, "Incorrect matchup impact value");
+            return Result<CounterPickScore>.Failure("Matchup impact must be between -1 and 1.");
         }
 
         var counterPickScore = new CounterPickScore(confidence, matchupImpact);
 
-        return (counterPickScore, null);
+        return Result<CounterPickScore>.Success(counterPickScore);
     }
 }

@@ -2,22 +2,45 @@ namespace DotaInsight.Domain.Shared;
 
 public class Result<T>
 {
+    // EF core
     private Result()
     {
         
     }
     
-    private bool IsSuccess { get; set; }
-    private T Value { get; set; }
-    private string? Error { get; set; }
+    public bool IsSuccess { get; private set; }
+
+    public bool IsFailure => !IsSuccess;
+    public T? Value { get; private set; } 
+    public string? Error { get; private set; }
     
-    public static void Success(T value)
+    public static Result<T> Success(T value)
     {
-        
+        return new Result<T>
+        {
+            IsSuccess = true,
+            Value = value,
+            Error = null
+        };
     }
     
-    public static void Failure(string error)
+    public static Result<T> Failure(string error)
     {
-
+        if (string.IsNullOrEmpty(error))
+        {
+            return new Result<T>
+            {
+                IsSuccess = false,
+                Value = default,
+                Error = "Error cannot be empty"
+            };
+        }
+        
+        return new Result<T>
+        {
+            IsSuccess = false,
+            Value = default,
+            Error = error
+        };
     }
 }
