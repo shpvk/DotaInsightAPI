@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DotaInsight.Application\DotaInsight.Application.csproj" />
+      <ProjectReference Include="..\DotaInsight.Domain\DotaInsight.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
