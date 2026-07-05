@@ -1,3 +1,4 @@
+using DotaInsight.Application.Features.Heroes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotaInsight.API.Controllers;
@@ -6,20 +7,37 @@ namespace DotaInsight.API.Controllers;
 [Route("api/heroes")]
 public sealed class HeroesController : ControllerBase
 {
-    [HttpGet]
-    public IActionResult GetHeroes()
+    private readonly IHeroService _heroService;
+
+    public HeroesController(IHeroService heroService)
     {
-        return NotImplemented("Hero catalog endpoint is not implemented yet.");
+        _heroService = heroService;
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetHeroes()
+    {
+        var receivedResult = await _heroService.GetAllAsync();
+
+        if (receivedResult.IsFailure)
+        {
+            return Problem(
+                title: "Failed to get heroes",
+                detail: receivedResult.Error,
+                statusCode: 500);
+        }
+        var result = receivedResult.Value;
+        return Ok(result);
     }
 
     [HttpGet("{heroId:int}/counters")]
-    public IActionResult GetCounters(int heroId, [FromQuery] int limit = 10)
+    public async Task<IActionResult> GetCounters(int heroId, [FromQuery] int limit = 10)
     {
         return NotImplemented("Hero counter recommendations endpoint is not implemented yet.");
     }
 
     [HttpGet("{heroId:int}/synergies")]
-    public IActionResult GetSynergies(int heroId, [FromQuery] int limit = 10)
+    public async Task<IActionResult> GetSynergies(int heroId, [FromQuery] int limit = 10)
     {
         return NotImplemented("Hero synergy recommendations endpoint is not implemented yet.");
     }

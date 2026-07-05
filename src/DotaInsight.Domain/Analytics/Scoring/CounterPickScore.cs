@@ -18,7 +18,7 @@ public class CounterPickScore
     
     public double Confidence { get; private set; }
     
-    public double MatchupImpact { get; private set; } // matchupImpact = matchupWinrate - heroBaseWinrate
+    public double MatchupImpact { get; private set; }
     
     public double Score { get; private set; } // score = matchupImpact * confidence
 
@@ -30,9 +30,9 @@ public class CounterPickScore
             return Result<CounterPickScore>.Failure("Confidence must be between 0 and 1.");
         }
         
-        if (matchupImpact is < -1 or > 1 )
+        if (matchupImpact is < -100 or > 100 )
         {
-            return Result<CounterPickScore>.Failure("Matchup impact must be between -1 and 1.");
+            return Result<CounterPickScore>.Failure("Matchup impact must be between -100 and 100.");
         }
 
         var counterPickScore = new CounterPickScore(confidence, matchupImpact);

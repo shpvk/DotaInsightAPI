@@ -6,4 +6,12 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\Recommendations\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DotaInsight.Domain\DotaInsight.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
