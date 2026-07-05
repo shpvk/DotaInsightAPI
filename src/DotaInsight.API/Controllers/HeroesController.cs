@@ -17,7 +17,16 @@ public sealed class HeroesController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetHeroes()
     {
-        var result = await _heroService.GetAllAsync();
+        var receivedResult = await _heroService.GetAllAsync();
+
+        if (receivedResult.IsFailure)
+        {
+            return Problem(
+                title: "Failed to get heroes",
+                detail: receivedResult.Error,
+                statusCode: 500);
+        }
+        var result = receivedResult.Value;
         return Ok(result);
     }
 
